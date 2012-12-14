@@ -11,6 +11,8 @@
     
     <script type="text/javascript" charset="utf-8">
 
+     writeGrecode(3.13008, 101.699052);
+
     // Wait for PhoneGap to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -33,17 +35,47 @@
                             'Heading: '            + position.coords.heading               + '<br />' +
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + new Date(position.timestamp)          + '<br />';
-    }
+    
+       writeGrecode(position.coords.latitude, position.coords.longitude);
+	}
 	
 	
-	var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude );
-                        var myOptions = {
-                                        zoom: 12,
-                                        center: initialLocation,
-                                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };
-                        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-       
+	
+	function writeGrecode(lat, long)
+	{
+		
+		 
+		
+		 var mapOptions = {
+          center: new google.maps.LatLng(lat,long),
+          zoom: 7,
+		  
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+	
+		//for(var i=0; i<beaches.length; i++)
+		//{	
+		  
+		    
+
+			var myLatLng = new google.maps.LatLng(lat,long);
+			
+			 bounds.extend(myLatLng);
+			var marker = new google.maps.Marker(
+			{
+            	map: map,
+            	position: myLatLng
+        	}
+			);
+
+		//}
+		
+		map.fitBounds(bounds);
+
+	}
+	
 	
 
     // onError Callback receives a PositionError object
@@ -58,7 +90,7 @@
   <body>
     <p id="geolocation">Finding geolocation...</p>
     
-    <div id="map_canvas"></div>
+    <div id="map_canvas">sss</div>
     
   </body>
 </html>
