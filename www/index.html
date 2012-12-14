@@ -4,6 +4,11 @@
     <title>Device Properties Example</title>
 
     <script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+    
+     <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCZR40kKLZTJfQGn-bq9n0WNyyx9trm8ZI&sensor=true">
+    </script>
+    
     <script type="text/javascript" charset="utf-8">
 
     // Wait for PhoneGap to load
@@ -29,6 +34,17 @@
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + new Date(position.timestamp)          + '<br />';
     }
+	
+	
+	var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude );
+                        var myOptions = {
+                                        zoom: 12,
+                                        center: initialLocation,
+                                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+       
+	
 
     // onError Callback receives a PositionError object
     //
@@ -41,5 +57,8 @@
   </head>
   <body>
     <p id="geolocation">Finding geolocation...</p>
+    
+    <div id="map_canvas"></div>
+    
   </body>
 </html>
